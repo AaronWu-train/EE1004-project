@@ -7,7 +7,7 @@ SRC_DIR = src
 BIN_DIR = bin
 DIST_DIR = dist
 TEST_DIR = tests
-INCLUDE_DIR = include  # Catch2 的 header 檔案位置
+INCLUDE_DIR = include
 
 # 從 .env 檔案讀取學號
 -include .env
@@ -42,10 +42,10 @@ $(EXECUTABLE): $(OBJ_FILES)
 
 $(BIN_DIR)/%.o: $(TEST_DIR)/%.cpp
 	@mkdir -p $(BIN_DIR)
-	$(CC) $(CFLAGS) -I$(INCLUDE_DIR) -c $< -o $@
+	$(CC) $(CFLAGS) -I$(INCLUDE_DIR) -I$(SRC_DIR) -c $< -o $@
 
 $(TEST_EXECUTABLE): $(TEST_OBJ) 
-	$(CC) $(CFLAGS) $^ -o $@ -I$(INCLUDE_DIR)
+	$(CC) $(CFLAGS) $^ -o $@ -I$(INCLUDE_DIR) -I$(SRC_DIR)
 
 # 執行測試目標
 test: $(TEST_EXECUTABLE)
