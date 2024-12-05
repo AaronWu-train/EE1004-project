@@ -31,10 +31,16 @@ TEST_CASE("PointTest") {
 }
 
 TEST_CASE("RGBTest") {
+    std::ostringstream buffer;
+    std::streambuf* old = std::cout.rdbuf(buffer.rdbuf());
+
     RGB a(155, 165, 175);
     cout << a << endl;
     cout << a + RGB(10, 10, 10) << endl;
     cout << a - RGB(10, 10, 10) << endl;
     RGB c(a);
     cout << c << endl;
+
+    std::cout.rdbuf(old);
+    REQUIRE(buffer.str() == "(155, 165, 175)\n(165, 175, 185)\n(145, 155, 165)\n(155, 165, 175)\n");
 }
