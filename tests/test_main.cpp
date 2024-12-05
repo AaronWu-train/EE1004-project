@@ -2,6 +2,7 @@
 #include <catch.hpp>
 #include <iostream>
 #include "point.h"
+#include "rgb.h"
 
 using namespace std;
 
@@ -27,4 +28,13 @@ TEST_CASE("PointTest") {
     std::cout.rdbuf(old);
 
     REQUIRE(buffer.str() == "p1=(1, 2) p2=(3, 4)\np3=(1, 2)\np3=(5, 6)\np1+p2=(4, 6)\np1=(6, 8)\n");
+}
+
+TEST_CASE("RGBTest") {
+    RGB a(155, 165, 175);
+    cout << a << endl;
+    cout << a + RGB(10, 10, 10) << endl;
+    cout << a - RGB(10, 10, 10) << endl;
+    RGB c(a);
+    cout << c << endl;
 }
