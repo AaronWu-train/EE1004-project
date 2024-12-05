@@ -6,6 +6,8 @@ CFLAGS = -Wall -O2
 SRC_DIR = src
 BIN_DIR = bin
 DIST_DIR = dist
+TEST_DIR = tests
+INCLUDE_DIR = include  # Catch2 的 header 檔案位置
 
 # 從 .env 檔案讀取學號
 -include .env
@@ -18,6 +20,11 @@ SRC_FILES := $(wildcard $(SRC_DIR)/*.cpp)
 HEADER_FILES := $(wildcard $(SRC_DIR)/*.h)  # 找到所有的 .h 檔案
 OBJ_FILES := $(patsubst $(SRC_DIR)/%.cpp, $(BIN_DIR)/%.o, $(SRC_FILES))
 EXECUTABLE = $(BIN_DIR)/main
+
+# Test 檔案
+TEST_SRC := $(wildcard $(TEST_DIR)/*.cpp)
+TEST_OBJ := $(patsubst $(TEST_DIR)/%.cpp, $(BIN_DIR)/%.o, $(TEST_SRC))
+TEST_EXECUTABLE = $(BIN_DIR)/test
 
 # 指定要打包的檔案
 FILES_TO_ARCHIVE = $(wildcard $(SRC_DIR)/*.h)
@@ -33,6 +40,17 @@ $(BIN_DIR)/%.o: $(SRC_DIR)/%.cpp
 $(EXECUTABLE): $(OBJ_FILES)
 	$(CC) $(CFLAGS) $^ -o $@
 
+$(BIN_DIR)/%.o: $(TEST_DIR)/%.cpp
+	@mkdir -p $(BIN_DIR)
+	$(CC) $(CFLAGS) -I$(INCLUDE_DIR) -c $< -o $@
+
+$(TEST_EXECUTABLE): $(TEST_OBJ) 
+	$(CC) $(CFLAGS) $^ -o $@ -I$(INCLUDE_DIR)
+
+# 執行測試目標
+test: $(TEST_EXECUTABLE)
+	./$(TEST_EXECUTABLE)
+
 # 打包目標
 archive: prepare_dist
 	zip -r $(ARCHIVE) $(ARCHIVE_DIR)
@@ -47,4 +65,4 @@ prepare_dist:
 clean:
 	rm -rf $(BIN_DIR) $(DIST_DIR) $(ARCHIVE)
 
-.PHONY: all archive prepare_dist clean
+.PHONY: all archive prepare_dist clean test
