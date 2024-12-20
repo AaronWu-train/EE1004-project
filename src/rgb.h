@@ -39,9 +39,6 @@ RGB RGB::operator+(const RGB& rgb) const {
 }
 
 RGB RGB::operator-(const RGB& rgb) const {
-    int nr = (r <= rgb.r) ? 0 : r - rgb.r;
-    int ng = (g <= rgb.g) ? 0 : g - rgb.g;
-    int nb = (b <= rgb.b) ? 0 : b - rgb.b;
     return RGB(r-rgb.r, g-rgb.g, b-rgb.b);
 }
 

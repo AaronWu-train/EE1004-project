@@ -7,6 +7,8 @@
 #include "tri.h"
 #include "diamond.h"
 #include "oval.h"
+#include "handle.h"
+#include "desktop.h"
 
 using namespace std;
 
@@ -80,11 +82,58 @@ void testOval() {
     map.save("output/oval.bmp");
 }
 
+void testHandle() {
+    // Circle
+    Handle a(Point(-50,-50), 100, RGB(128,0,0));
+    // Rect
+    Handle b(Point(0, 0), 150, 100, RGB(0,128,0));
+    // Triangle
+    Handle c(Point(-30,-30), 50, 150, 100, RGB(0,0,128));
+    // Oval
+    Handle d(Point(-40,-40), 25.0, 75.0, RGB(255,0,0), RGB(255,128,0));
+    // Diamond
+    Handle e(Point(-100,-30), 50.0, 70.0, RGB(255,255,0));
+    Desktop desk(400,400);
+    desk << a << b << c << d << e;
+    desk.save("output/1.bmp");
+    desk.clear();
+    desk + a + b + c + d + e;
+    desk.save("output/2.bmp");
+
+    // shallow copy
+    b = a;
+    // copy-on-write
+    b += Point(50,0);
+    b *= 1.2;
+    d *= 0.5;
+    d.setColor(RGB(255,0,0));
+    desk.clear();
+    desk + a + b - d;
+    desk.save("output/3.bmp");
+
+    // No problem with using array
+    desk.clear();
+    int num = 30;
+    Handle *list = new Handle[num];
+    list[0] = Handle(Point(0,0), 300.0, 300.0, RGB(255,0,0));
+    double u = 255.0;
+    for (int i=1; i<num; ++i) {
+    list[i] = list[i-1] * 0.9;
+    u *= 0.9;
+    list[i].setColor(RGB(int(u),0,0));
+    }
+    for (int i=0; i<num; ++i)
+    desk + list[i] - (list[i]*0.95);
+    desk.save("output/tunnel.bmp");
+    delete []list;
+}
+
 int main() {
     testRect();
     testCircle();
     testTri();
     testDiamond();
     testOval();
+    testHandle();
 }
 
