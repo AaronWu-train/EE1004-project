@@ -4,8 +4,11 @@
 #include "rgb.h"
 #include "circle.h"
 #include "rect.h"
+#include "tri.h"
+#include "diamond.h"
 
 using namespace std;
+
 void testBitmap() {
     Bitmap map(400, 400);
     RGB red(255, 0, 0);
@@ -40,6 +43,30 @@ void testRect() {
     map.save("output/rect.bmp");
 }
 
+void testTri() {
+    Bitmap map(400, 400);
+    Tri red_tri(Point(0, 0), 50, 100, 150, RGB(255, 0, 0));
+    Base* green_tri;
+    green_tri = red_tri.copy();
+    green_tri->setColor(RGB(0, 255, 0));
+    *green_tri *= 0.5;
+    red_tri.draw(map, 0);
+    green_tri->draw(map, 0);
+    map.save("output/tri.bmp");
+}
+
+void testDiamond() {
+    Bitmap map(400, 400);
+    Diamond red_diamond(Point(0, 0), 50.0, 70.0, RGB(255,0,0));
+    Base* green_diamond;
+    green_diamond = red_diamond.copy();
+    green_diamond->setColor(RGB(0, 255, 0));
+    *green_diamond *= 0.5;
+    red_diamond.draw(map, 0);
+    green_diamond->draw(map, 0);
+    map.save("output/diamond.bmp");
+}
+
 int main() {
-    testRect();
+    testDiamond();
 }
