@@ -12,8 +12,8 @@ INCLUDE_DIR = include
 # 從 .env 檔案讀取學號
 -include .env
 STUDENT_ID ?= unknown
-ARCHIVE_DIR = $(DIST_DIR)/$(STUDENT_ID)
-ARCHIVE = $(DIST_DIR)/$(STUDENT_ID).zip
+ARCHIVE_DIR = $(STUDENT_ID)
+ARCHIVE = $(STUDENT_ID).zip
 
 # 檔案
 SRC_FILES := $(wildcard $(SRC_DIR)/*.cpp)
@@ -53,12 +53,12 @@ test: $(TEST_EXECUTABLE)
 
 # 打包目標
 archive: prepare_dist
-	zip -r $(ARCHIVE) $(ARCHIVE_DIR)
+	cd $(DIST_DIR) && zip -r $(ARCHIVE) $(ARCHIVE_DIR)
 
 prepare_dist:
-	@mkdir -p $(ARCHIVE_DIR)
+	@mkdir -p $(DIST_DIR)/$(ARCHIVE_DIR)
 	@for file in $(FILES_TO_ARCHIVE); do \
-	    cp $$file $(ARCHIVE_DIR); \
+	    cp $$file $(DIST_DIR)/$(ARCHIVE_DIR); \
 	done
 
 # 清理目標
