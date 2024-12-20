@@ -37,3 +37,4 @@ output/
 .env
 !*/.git-keep
 *.dSYM/
+.vscode/

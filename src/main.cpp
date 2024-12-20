@@ -32,6 +32,7 @@ void testCircle() {
     red_circle.draw(map, 0);
     green_circle->draw(map, 0);
     map.save("output/circle.bmp");
+    delete green_circle;
 }
 
 void testRect() {
@@ -44,6 +45,7 @@ void testRect() {
     red_rect.draw(map, 0);
     green_rect->draw(map, 0);
     map.save("output/rect.bmp");
+    delete green_rect;
 }
 
 void testTri() {
@@ -56,6 +58,7 @@ void testTri() {
     red_tri.draw(map, 0);
     green_tri->draw(map, 0);
     map.save("output/tri.bmp");
+    delete green_tri;
 }
 
 void testDiamond() {
@@ -68,6 +71,7 @@ void testDiamond() {
     red_diamond.draw(map, 0);
     green_diamond->draw(map, 0);
     map.save("output/diamond.bmp");
+    delete green_diamond;
 }
 
 void testOval() {
@@ -80,6 +84,7 @@ void testOval() {
     red_grad_oval.draw(map, 0);
     green_grad_oval->draw(map, 0);
     map.save("output/oval.bmp");
+    delete green_grad_oval;
 }
 
 void testHandle() {
