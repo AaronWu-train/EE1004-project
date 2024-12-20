@@ -6,6 +6,7 @@
 #include "rect.h"
 #include "tri.h"
 #include "diamond.h"
+#include "oval.h"
 
 using namespace std;
 
@@ -67,6 +68,23 @@ void testDiamond() {
     map.save("output/diamond.bmp");
 }
 
-int main() {
-    testDiamond();
+void testOval() {
+    Bitmap map(400, 400);
+    Oval red_grad_oval(Point(0, 0), 100.0, 150.0, RGB(255,0,0), RGB(255,128,0));
+    Base* green_grad_oval;
+    green_grad_oval = red_grad_oval.copy();
+    green_grad_oval->setColor(RGB(0, 255, 0));
+    *green_grad_oval *= 0.5;
+    red_grad_oval.draw(map, 0);
+    green_grad_oval->draw(map, 0);
+    map.save("output/oval.bmp");
 }
+
+int main() {
+    testRect();
+    testCircle();
+    testTri();
+    testDiamond();
+    testOval();
+}
+

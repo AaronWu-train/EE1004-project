@@ -90,7 +90,10 @@ void Bitmap::drawGradientOval(const Point& center, double radiusX, double radius
         for (long long j = 0; j < radiusY; ++j) {
             double ratio = sqrt(( i * i ) / ( radiusX * radiusX ) + ( j * j ) / ( radiusY * radiusY ));
             if (ratio <= 1.0) {
-                RGB color = c + (c2 - c) * ratio;
+                RGB color = c + ((c2 - c) * ratio);
+                if(ratio<0.1)std::cerr << color << c<<c2<< c2-c << (c2-c)* ratio << " " << ratio << "\n";
+
+
                 this->setPixel(center.getX() + i, center.getY() + j, color, m);
                 this->setPixel(center.getX() + i, center.getY() - j, color, m);
                 this->setPixel(center.getX() - i, center.getY() + j, color, m);

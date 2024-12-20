@@ -36,4 +36,4 @@ dist/
 output/
 .env
 !*/.git-keep
-
+*.dSYM/

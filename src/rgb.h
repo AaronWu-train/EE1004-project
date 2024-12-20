@@ -4,11 +4,11 @@
 class RGB {
 friend class BitmapBase;
 protected:
-    uint8_t r, g, b;
+    int r, g, b;
 
 public:
     RGB();
-    RGB(uint8_t r, uint8_t g, uint8_t b);
+    RGB(int r, int g, int b);
     RGB(const RGB& rgb);
     RGB& operator=(const RGB& rgb);
     RGB operator+(const RGB& rgb) const;
@@ -24,7 +24,7 @@ public:
 #define _RGB_IMPL_
 
 RGB::RGB() : r(0), g(0), b(0) {}
-RGB::RGB(uint8_t r, uint8_t g, uint8_t b) : r(r), g(g), b(b) {}
+RGB::RGB(int r, int g, int b) : r(r), g(g), b(b) {}
 RGB::RGB(const RGB& rgb) : r(rgb.r), g(rgb.g), b(rgb.b) {}
 
 RGB& RGB::operator=(const RGB& rgb) {
@@ -39,7 +39,10 @@ RGB RGB::operator+(const RGB& rgb) const {
 }
 
 RGB RGB::operator-(const RGB& rgb) const {
-    return RGB(r - rgb.r, g - rgb.g, b - rgb.b);
+    int nr = (r <= rgb.r) ? 0 : r - rgb.r;
+    int ng = (g <= rgb.g) ? 0 : g - rgb.g;
+    int nb = (b <= rgb.b) ? 0 : b - rgb.b;
+    return RGB(r-rgb.r, g-rgb.g, b-rgb.b);
 }
 
 RGB RGB::operator*(double ratio) const {
