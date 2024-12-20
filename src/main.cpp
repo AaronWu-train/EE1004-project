@@ -1,12 +1,6 @@
 #include <iostream>
-#include "bitmap.h"
 #include "point.h"
-#include "rgb.h"
-#include "circle.h"
-#include "rect.h"
-#include "tri.h"
-#include "diamond.h"
-#include "oval.h"
+#include "bitmap.h"
 #include "handle.h"
 #include "desktop.h"
 
