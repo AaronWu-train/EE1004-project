@@ -16,17 +16,16 @@ public:
     void operator*= (double scale);
     Base* copy() const;
     void draw(Bitmap& map, int method) const;
-    
 };
 
-Rect::Rect(const Point& _ref, int _width, int _height, const RGB& _color) 
-: width(_width), height(_height) {
+Rect::Rect(const Point& _ref, int _width, int _height, const RGB& _color)
+    : width(_width), height(_height) {
     this->count = 1;
     this->ref = _ref;
     this->color = _color;
 }
 
-Rect::~Rect(){}
+Rect::~Rect() {}
 
 void Rect::operator*= (double scale) {
     this->width *= scale;
@@ -35,7 +34,7 @@ void Rect::operator*= (double scale) {
 
 Base* Rect::copy() const {
     Rect* ret = new Rect(ref, width, height, color);
-    return (Base *)ret;
+    return (Base*)ret;
 }
 
 void Rect::draw(Bitmap& map, int method) const {

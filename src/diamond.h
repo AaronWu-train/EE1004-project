@@ -16,17 +16,16 @@ public:
     void operator*= (double scale);
     Base* copy() const;
     void draw(Bitmap& map, int method) const;
-    
 };
 
-Diamond::Diamond(const Point& _ref, double _width, double _height, const RGB& _color) 
-: width(_width), height(_height) {
+Diamond::Diamond(const Point& _ref, double _width, double _height, const RGB& _color)
+    : width(_width), height(_height) {
     this->count = 1;
     this->ref = _ref;
     this->color = _color;
 }
 
-Diamond::~Diamond(){}
+Diamond::~Diamond() {}
 
 void Diamond::operator*= (double scale) {
     this->width *= scale;
@@ -35,7 +34,7 @@ void Diamond::operator*= (double scale) {
 
 Base* Diamond::copy() const {
     Diamond* ret = new Diamond(ref, width, height, color);
-    return (Base *)ret;
+    return (Base*)ret;
 }
 
 void Diamond::draw(Bitmap& map, int method) const {

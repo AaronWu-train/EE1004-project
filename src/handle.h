@@ -12,10 +12,10 @@
 #include "tri.h"
 
 class Handle {
-   protected:
+protected:
     Base* content;
 
-   public:
+public:
     Handle();
     Handle(const Point&, int, const RGB&);                         // circle
     Handle(const Point&, int, int, const RGB&);                    // rect
@@ -39,14 +39,19 @@ class Handle {
 };
 
 Handle::Handle() : content(nullptr) {}
+
 Handle::Handle(const Point& ref, int radius, const RGB& c)
     : content(new Circle(ref, radius, c)) {}
+
 Handle::Handle(const Point& ref, int width, int height, const RGB& c)
     : content(new Rect(ref, width, height, c)) {}
+
 Handle::Handle(const Point& ref, int left, int right, int height, const RGB& c)
     : content(new Tri(ref, left, right, height, c)) {}
+
 Handle::Handle(const Point& ref, double radiusX, double radiusY, const RGB& c, const RGB& c2)
     : content(new Oval(ref, radiusX, radiusY, c, c2)) {}
+
 Handle::Handle(const Point& ref, double width, double height, const RGB& c)
     : content(new Diamond(ref, width, height, c)) {}
 

@@ -8,7 +8,6 @@
 #include <cmath>
 
 class Bitmap : public BitmapBase {
-
 public:
     Bitmap(int x, int y);
     ~Bitmap();
@@ -19,9 +18,7 @@ public:
     void drawDiamond(const Point& center, double width, double height, const RGB& c, int m);
     void drawGradientOval(const Point& center, double radiusX, double radiusY, 
                           const RGB& c, const RGB& c2, int m);
-
 };
-
 
 Bitmap::Bitmap(int x, int y) {
     xSize = x;
@@ -31,7 +28,7 @@ Bitmap::Bitmap(int x, int y) {
 }
 
 Bitmap::~Bitmap() {
-    if (image) delete []image;
+    if (image) delete[] image;
 }
 
 void Bitmap::drawSolidRect(const Point& base, int width, int height, const RGB& c, int m) {
@@ -44,22 +41,22 @@ void Bitmap::drawSolidRect(const Point& base, int width, int height, const RGB& 
     }
 }
 
-void Bitmap::drawSolidTriangle (const Point& ref, int left, int right,
+void Bitmap::drawSolidTriangle(const Point& ref, int left, int right, 
                                 int height, const RGB& c, int m) {
     for (int j = 0; j < height; ++j) {
         int y = j + ref.getX();
-        for (int i = 0; i < (left*(1 - (double)j / height)); ++i) {
+        for (int i = 0; i < (left * (1 - (double)j / height)); ++i) {
             int x = ref.getY() - i;
             this->setPixel(x, y, c, m);
         }
-        for (int i = 1; i < (right*(1 - (double)j / height)); i++) {
+        for (int i = 1; i < (right * (1 - (double)j / height)); i++) {
             int x = ref.getY() + i;
             this->setPixel(x, y, c, m);
         }
     }
 }
 
-void Bitmap::drawSolidCircle (const Point& center, int radius, const RGB& c, int m) {
+void Bitmap::drawSolidCircle(const Point& center, int radius, const RGB& c, int m) {
     for (long long i = 1; i <= radius; ++i) {
         for (long long j = 1; j <= radius; ++j) {
             if (i * i + j * j <= (long long)radius * radius) {
@@ -79,7 +76,7 @@ void Bitmap::drawSolidCircle (const Point& center, int radius, const RGB& c, int
     this->setPixel(center.getX(), center.getY(), c, m);
 }
 
-void Bitmap::drawDiamond(const Point& center, double width, double height, const RGB& c, int m){
+void Bitmap::drawDiamond(const Point& center, double width, double height, const RGB& c, int m) {
     for (int i = 1; i * 2 <= round(height); ++i) {
         for (int j = 1; j * 2 <= round(width * (1.0 - 2.0 * (i / height))); j++) {
             this->setPixel(center.getX() + j, center.getY() + i, c, m);
@@ -91,12 +88,12 @@ void Bitmap::drawDiamond(const Point& center, double width, double height, const
     // center
     this->setPixel(center.getX(), center.getY(), c, m);
     // X axis
-    for (int i = 1; i*2 <= round(width); ++i) {
+    for (int i = 1; i * 2 <= round(width); ++i) {
         this->setPixel(center.getX() + i, center.getY(), c, m);
         this->setPixel(center.getX() - i, center.getY(), c, m);
     }
     // Y axis
-    for (int i = 1; i*2 <= round(height); ++i) {
+    for (int i = 1; i * 2 <= round(height); ++i) {
         this->setPixel(center.getX(), center.getY() + i, c, m);
         this->setPixel(center.getX(), center.getY() - i, c, m);
     }
@@ -107,7 +104,7 @@ void Bitmap::drawGradientOval(const Point& center, double radiusX, double radius
 
     for (long long i = 0; i <= radiusX; ++i) {
         for (long long j = 0; j <= radiusY; ++j) {
-            double ratio = sqrt(( i * i ) / ( radiusX * radiusX ) + ( j * j ) / ( radiusY * radiusY ));
+            double ratio = sqrt((i * i) / (radiusX * radiusX) + (j * j) / (radiusY * radiusY));
             if (ratio <= 1.0) {
                 RGB color = c + ((c2 - c) * ratio);
                 this->setPixel(center.getX() + i, center.getY() + j, color, m);

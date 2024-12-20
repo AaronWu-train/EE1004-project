@@ -17,17 +17,16 @@ public:
     void operator*= (double scale);
     Base* copy() const;
     void draw(Bitmap& map, int method) const;
-
 };
 
-Tri::Tri(const Point& _ref, int _left, int _right, int _height, const RGB& _color) 
-: left(_left), right(_right), height(_height) {
+Tri::Tri(const Point& _ref, int _left, int _right, int _height, const RGB& _color)
+    : left(_left), right(_right), height(_height) {
     this->count = 1;
     this->ref = _ref;
     this->color = _color;
 }
 
-Tri::~Tri(){}
+Tri::~Tri() {}
 
 void Tri::operator*= (double scale) {
     this->left *= scale;
@@ -37,7 +36,7 @@ void Tri::operator*= (double scale) {
 
 Base* Tri::copy() const {
     Tri* ret = new Tri(ref, left, right, height, color);
-    return (Base *)ret;
+    return (Base*)ret;
 }
 
 void Tri::draw(Bitmap& map, int method) const {
