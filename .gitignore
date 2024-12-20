@@ -32,5 +32,8 @@
 
 ## Local 
 bin/
+dist/
+output/
 .env
+!*/.git-keep
 
