@@ -129,6 +129,7 @@ void testHandle() {
 }
 
 int main() {
+    testBitmap();
     testRect();
     testCircle();
     testTri();

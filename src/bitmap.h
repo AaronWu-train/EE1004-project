@@ -48,11 +48,11 @@ void Bitmap::drawSolidTriangle (const Point& ref, int left, int right,
                                 int height, const RGB& c, int m) {
     for (int j = 0; j < height; ++j) {
         int y = j + ref.getX();
-        for (int i = 0; i < left*(1 - (double)j / height); ++i) {
+        for (int i = 0; i < (left*(1 - (double)j / height)); ++i) {
             int x = ref.getY() - i;
             this->setPixel(x, y, c, m);
         }
-        for (int i = 1; i < right*(1 - (double)j / height); i++) {
+        for (int i = 1; i < (right*(1 - (double)j / height)); i++) {
             int x = ref.getY() + i;
             this->setPixel(x, y, c, m);
         }
@@ -80,8 +80,8 @@ void Bitmap::drawSolidCircle (const Point& center, int radius, const RGB& c, int
 }
 
 void Bitmap::drawDiamond(const Point& center, double width, double height, const RGB& c, int m){
-    for (int i = 1; i <= height/2.0; ++i) {
-        for (int j = 1; j <= (width / 2.0) * (1 - (double)i / (height / 2.0) ); j++) {
+    for (int i = 1; i * 2 <= round(height); ++i) {
+        for (int j = 1; j * 2 <= round(width * (1.0 - 2.0 * (i / height))); j++) {
             this->setPixel(center.getX() + j, center.getY() + i, c, m);
             this->setPixel(center.getX() + j, center.getY() - i, c, m);
             this->setPixel(center.getX() - j, center.getY() + i, c, m);
@@ -91,12 +91,12 @@ void Bitmap::drawDiamond(const Point& center, double width, double height, const
     // center
     this->setPixel(center.getX(), center.getY(), c, m);
     // X axis
-    for (int i = 1; i <= width/2; ++i) {
+    for (int i = 1; i*2 <= round(width); ++i) {
         this->setPixel(center.getX() + i, center.getY(), c, m);
         this->setPixel(center.getX() - i, center.getY(), c, m);
     }
     // Y axis
-    for (int i = 1; i <= height/2; ++i) {
+    for (int i = 1; i*2 <= round(height); ++i) {
         this->setPixel(center.getX(), center.getY() + i, c, m);
         this->setPixel(center.getX(), center.getY() - i, c, m);
     }
