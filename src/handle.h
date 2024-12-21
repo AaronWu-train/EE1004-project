@@ -72,6 +72,7 @@ Handle::Handle(const Handle& h) : content(h.content) {
 }
 
 const Handle& Handle::operator=(const Handle& h) {
+    if (this == &h) return *this;
     if (content) {
         if (content->count == 1) {
             delete content;
@@ -87,6 +88,7 @@ const Handle& Handle::operator=(const Handle& h) {
 }
 
 void Handle::setColor(const RGB& c) {
+    if (!content) return;
     if (content->count > 1) {
         content->count--;
         content = content->copy();
@@ -95,6 +97,7 @@ void Handle::setColor(const RGB& c) {
 }
 
 void Handle::operator+=(const Point& p) {
+    if (!content) return;
     if (content->count > 1) {
         content->count--;
         content = content->copy();
@@ -103,6 +106,7 @@ void Handle::operator+=(const Point& p) {
 }
 
 void Handle::operator*=(const double& scale) {
+    if (!content) return;
     if (content->count > 1) {
         content->count--;
         content = content->copy();
@@ -123,7 +127,9 @@ Handle Handle::operator*(const double& scale) const {
 }
 
 void Handle::draw(Bitmap& map, int method) const {
-    content->draw(map, method);
+    if (content) {
+        content->draw(map, method);
+    }
 }
 
 #endif  // _HANDLE_H_
